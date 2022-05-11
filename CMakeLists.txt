@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.8.0)
+project(GLTFKit2)
+
+add_subdirectory(Frameworks/CGLTF)
+
+file(GLOB_RECURSE PUBLIC_HEADERS "Headers/*" "Headers/**/*")
+file(GLOB_RECURSE SOURCE "Source/*" "Source/**/*")
+source_group(TREE ${PROJECT_SOURCE_DIR} FILES ${PUBLIC_HEADERS} ${SOURCE})
+
+add_library(GLTFKit2 STATIC ${SOURCE})
+target_include_directories(GLTFKit2 PUBLIC Headers)
+target_link_libraries(GLTFKit2 PRIVATE CGLTF)
+set_target_properties(GLTFKit2 PROPERTIES
+  FRAMEWORK TRUE
+  PUBLIC_HEADER "${PUBLIC_HEADERS}"
+  XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "darwin.gltf.gltfkit2"
+  XCODE_ATTRIBUTE_LD_RUNPATH_SEARCH_PATHS "@executable_path/Frameworks"
+  XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
+  XCODE_ATTRIBUTE_COPY_PHASE_STRIP NO
+  XCODE_ATTRIBUTE_CLANG_ENABLE_MODULES YES
+  XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY ON
+)

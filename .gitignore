@@ -4,4 +4,9 @@ xcuserdata/
 .DS_Store
 .swiftpm
 .build/
+.cache
+.vscode
+
 Carthage/Build/
+build
+build-*
